@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Stud_rec.Controllers;
+@{
+    ViewBag.Title = "ComputeResult";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bar">
+    <div class="inbar1">
+        <label>Dashboard</label>
+    </div>
+    <div class="inbar2">
+        @if (Request.IsAuthenticated)
+        {
+            <label>
+                Programme : @Html.Label(UserController.GetUser(User.Identity.GetUserId()).Department)
+
+            </label>
+            <span> | </span>
+            <span>
+                <label>Level :@Html.Label(UserController.GetUser(User.Identity.GetUserId()).Level)</label>
+
+            </span>
+        }
+
+
+    </div>
+
+   
+</div>
+<div class="panel">
+    <div class="Contents_Records">
+       @using (Html.BeginForm("", "User", FormMethod.Post))
+        {
+             
+        @Html.DropDownList("Category", new List<SelectListItem>
+        {
+            new SelectListItem {Text ="2010/2011",Value ="2010/2011"},
+            new SelectListItem {Text="2011/2012", Value= "2011/2012"},
+            new SelectListItem {Text="2012/2013", Value ="2012/2013"},
+            new SelectListItem {Text="2013/2014",Value ="2013/20144"},
+            new SelectListItem {Text="2014/2015", Value= "2014/2015"},
+            new SelectListItem {Text="2015/2016", Value ="2015/2016"}
+
+        }, "Select Session", new { @class = "dropdownlist" })
+
+        @Html.DropDownList("Semesters", new List<SelectListItem>
+        {
+            new SelectListItem {Text ="First Semester",Value ="First Semester"},
+            new SelectListItem {Text="Second Semester", Value= "Second Semester"}
+           
+
+        }, "Select Semester", new { @class = "dropdownlist" })
+
+        @Html.DropDownList("NumberOfCourses", new List<SelectListItem>
+        {
+            new SelectListItem {Text ="1",Value ="1"},
+            new SelectListItem {Text="2", Value= "2"},
+            new SelectListItem {Text= "3",Value= "3"},
+            new SelectListItem {Text ="4",Value ="4"},
+            new SelectListItem {Text="5", Value= "5"},
+            new SelectListItem {Text= "6",Value= "6"},
+            new SelectListItem {Text ="7",Value ="7"},
+            new SelectListItem {Text="8", Value= "8"},
+            new SelectListItem {Text= "9",Value= "9"},
+            new SelectListItem {Text ="10",Value ="10"},
+            new SelectListItem {Text="11", Value= "11"},
+            new SelectListItem {Text= "12",Value= "12"},
+            new SelectListItem {Text= "13",Value= "13"}
+
+
+        }, "Select Courses", new { @class = "dropdownlist1" })
+            
+           
+           @*@Html.DropDownList("Units", new List<SelectListItem>
+        {
+            new SelectListItem {Text ="1",Value ="one"},
+            new SelectListItem {Text="2", Value= "two"},
+            new SelectListItem {Text="3", Value ="three"},
+            new SelectListItem {Text="4",Value ="four"},
+            new SelectListItem {Text="5", Value= "five"},
+            new SelectListItem {Text="6", Value ="six"}
+
+        }, "Select Unit", new { @class = "dropdownlist" })*@
+
+
+
+
+        <div id="courses">  </div>
+        <script src="~/Scripts/jquery-1.10.2.js"></script>
+        <script>
+            $(function () {
+                $(".dropdownlist1").on("change", function (e) {
+                    var value = $(this).val();
+                   // if (value ==)
+                    var textbox1 = "";
+                    var num = 4;
+                    // var textbox2 = "";
+                    for (i = 1; i <= value; i++) {
+                       // textbox1 = i+ "" + textbox1 ;
+                        //for (var j = 1; j<=num; j++)
+                        //{
+                            textbox1 += i + " " + "<input id=coursecode'" + i + "'/>" + " " + "<input id =coursedescription '" + i + "'/>" + " " + "<input id  = coursegrade '" + i + "'/>" + " " + "<input id =courseunits '" + i + "'/><br/><br/>";
+                           // textbox1 +="<input id=coursecode'" + i +""+j+ "'/>"
+                        //}
+                       // textbox1 += "<br>";
+
+                    }
+
+                    $("#courses").html(textbox1);
+
+
+                });
+
+            });
+
+        </script>
+
+            @Html.ActionLink("Compute CGPA ", "", "User");
+           
+        }
+    </div>
+    
+</div>

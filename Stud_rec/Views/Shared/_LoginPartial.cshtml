@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Stud_rec.Controllers;
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "User", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            
+            @Html.ActionLink("Welcome" +", "+ UserController.GetUser(User.Identity.GetUserId()).FirstName + " "+  UserController.GetUser(User.Identity.GetUserId()).LastName+  "!", "Manage", "User", routeValues: null, htmlAttributes: new { title = "Manage" })
+
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+        <li>
+            
+        </li>
+    </ul>
+    
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "User", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "User", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+@*<div class="inbar3">
+    <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+
+</div*@>
